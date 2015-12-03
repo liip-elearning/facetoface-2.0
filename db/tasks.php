@@ -30,10 +30,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-// List of observers.
-$observers = array(
+$tasks = array(
     array(
-        'eventname'   => '\core\event\user_enrolment_deleted',
-        'callback'    => 'mod_facetoface_observer::user_enrolment_deleted',
-    ),
+        'classname' => 'mod_facetoface\task\cron_task',
+        'blocking'  => 0,
+        'minute'    => '*',
+        'hour'      => '1',
+        'day'       => '*',
+        'month'     => '*',
+        'dayofweek' => '*'
+    )
 );
