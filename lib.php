@@ -1880,7 +1880,7 @@ function restoreOrDeductUserZebraModule($action, $userId) {
     $curl = curl_init();
     curl_setopt_array($curl, array(
         CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => 'http://zebra.lo/api/v2/restoreOrDeductUserModule/'.$matches[0].'/'.$action.'.json?token='.$token
+        CURLOPT_URL => 'https://beta-zebra.liip.ch/api/v2/restoreOrDeductUserModule/'.$matches[0].'/'.$action.'.json?token='.$token
     ));
     $resp = json_decode(curl_exec($curl));
     curl_close($curl);
