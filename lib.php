@@ -533,6 +533,30 @@ function facetoface_update_calendar_entries($session, $facetoface = null){
         return true;
     }
 
+    // LIIP customisation
+    // this adds all sessions to all users calendars with a trainer role
+    // TODO make this a setting of the module instance
+    $coursecontext = context_course::instance($facetoface->course);
+    $trainerroles = facetoface_get_trainer_roles($coursecontext);
+
+    if ($trainerroles) {
+        // Get trainers.
+        $trainers = facetoface_get_trainers($session->id);
+
+        foreach ($trainerroles as $role => $rolename) {
+            $rolename = $rolename->localname;
+
+            if (empty($trainers[$role])) {
+                continue;
+            }
+
+            foreach ($trainers[$role] as $trainer) {
+                facetoface_add_session_to_calendar($session, $facetoface, 'user', $trainer->id, 'session');
+            }
+        }
+    }
+    // LIIP customisation end
+
     //add to NEW calendartype
     if ($facetoface->usercalentry) {
     //get ALL enrolled/booked users
